@@ -3,7 +3,7 @@ extends CharacterBody3D
 @onready var camera_mount = $camera_mount
 
 @onready var visuals = $visuals
-@onready var animation_player = $visuals/mixamo_base/AnimationPlayer
+@onready var animation_player = $"visuals/Root Scene/AnimationPlayer"
 
 
 var SPEED = 3.0
@@ -54,16 +54,16 @@ func _physics_process(delta):
 			if animation_player.current_animation != "running":
 				animation_player.play("running")
 		else:
-			if animation_player.current_animation != "walking":
-				animation_player.play("walking")
+			if animation_player.current_animation != "Y bot_basic locomotion/walking":
+				animation_player.play("Y bot_basic locomotion/walking")
 		
 		visuals.look_at(position + direction)
 		
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
-		if animation_player.current_animation != "idle":
-			animation_player.play("idle")
+		if animation_player.current_animation != "Y bot_basic locomotion/idle":
+			animation_player.play("Y bot_basic locomotion/idle")
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
