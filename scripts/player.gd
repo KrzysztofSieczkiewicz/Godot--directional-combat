@@ -51,8 +51,8 @@ func _physics_process(delta):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		if running:
-			if animation_player.current_animation != "running":
-				animation_player.play("running")
+			if animation_player.current_animation != "Y bot_basic locomotion/running":
+				animation_player.play("Y bot_basic locomotion/running")
 		else:
 			if animation_player.current_animation != "Y bot_basic locomotion/walking":
 				animation_player.play("Y bot_basic locomotion/walking")
