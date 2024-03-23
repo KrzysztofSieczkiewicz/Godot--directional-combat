@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://c3v1yq6dbds71"]
+[gd_scene load_steps=14 format=3 uid="uid://c3v1yq6dbds71"]
 
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_mbli3"]
 [ext_resource type="PackedScene" uid="uid://b2f8cd48gdo0j" path="res://scenes/player.tscn" id="2_4d8go"]
+[ext_resource type="Script" path="res://scripts/CameraController.gd" id="3_cmp2w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qpafl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -63,6 +64,8 @@ shape = SubResource("ConcavePolygonShape3D_gdtwt")
 
 [node name="Box" type="RigidBody3D" parent="Scene"]
 transform = Transform3D(0.938179, 0.314404, 0.144809, -0.34615, 0.852138, 0.39248, 0, -0.418343, 0.908289, 0, 1.65915, 3.31582)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Scene/Box"]
 shape = SubResource("BoxShape3D_p0jk5")
@@ -73,6 +76,8 @@ skeleton = NodePath("../CollisionShape3D")
 
 [node name="Box2" type="RigidBody3D" parent="Scene"]
 transform = Transform3D(0.866426, 0.129901, 0.482112, 0.0404008, 0.94416, -0.327002, -0.497669, 0.302801, 0.812796, 0.444054, 3.61294, 3.31582)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Scene/Box2"]
 shape = SubResource("BoxShape3D_p0jk5")
@@ -83,6 +88,8 @@ skeleton = NodePath("../CollisionShape3D")
 
 [node name="Box3" type="RigidBody3D" parent="Scene"]
 transform = Transform3D(-0.282916, 0.859293, -0.426116, -0.891661, -0.399326, -0.213258, -0.35341, 0.319617, 0.879174, -0.851773, 5.12909, 3.31582)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Scene/Box3"]
 shape = SubResource("BoxShape3D_p0jk5")
@@ -104,3 +111,18 @@ shape = SubResource("ConvexPolygonShape3D_eba7r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0199945, 0.0525689, 0.0146607)
 
 [node name="Player" parent="." instance=ExtResource("2_4d8go")]
+
+[node name="CameraController" type="Node3D" parent="." groups=["CameraController"]]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
+script = ExtResource("3_cmp2w")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraController"]
+transform = Transform3D(0.965368, -0.0675238, 0.252002, 0.0675238, 0.99768, 0.00865799, -0.252002, 0.00865805, 0.967688, 0, 0, 0)
+collision_mask = 2
+spring_length = 1.75
+
+[node name="Camera3D" type="Camera3D" parent="CameraController/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0.4, 1.45, 1.083)
+
+[node name="LookAt" type="Node3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 1.79576, -0.956092)
